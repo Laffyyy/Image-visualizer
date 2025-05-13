@@ -3,6 +3,7 @@ from tkinterdnd2 import DND_FILES, TkinterDnD
 from utils.image_loader import ImageLoader
 from analyzer.color_selector import ColorSelector
 from analyzer.color_analyzer import ColorAnalyzer
+from PIL import Image, ImageTk
 
 class ImageAnalyzerApp:
     def __init__(self, master):
@@ -33,8 +34,10 @@ class ImageAnalyzerApp:
             self.analyze_image(image)
 
     def display_image(self, image):
-        # Assuming image is a PhotoImage object
-        self.canvas.create_image(250, 150, image=image)
+        # Convert the PIL.Image object to a PhotoImage object
+        photo_image = ImageTk.PhotoImage(image)
+        self.canvas.create_image(250, 150, image=photo_image)
+        self.canvas.image = photo_image  # Keep a reference to avoid garbage collection
 
     def analyze_image(self, image):
         color_selector = ColorSelector(image)
