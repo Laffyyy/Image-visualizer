@@ -42,11 +42,11 @@ class ImageAnalyzerApp:
         color = self.image_display.get_color_at_position(event.x, event.y)
         if color:
             self.color_picker.update_color_preview(color)
-            
+            if hasattr(self.color_picker, 'set_hsv_from_rgb'):
+                self.color_picker.set_hsv_from_rgb(color)
             color_analyzer = ColorAnalyzer(self.image_display.current_image)
             similar_colors = color_analyzer.find_similar_colors(color)
             print("Similar colors found:", similar_colors)
-            
             self.image_display.disable_color_picking()
 
     def drop(self, event):
